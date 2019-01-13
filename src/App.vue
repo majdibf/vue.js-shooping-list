@@ -1,23 +1,44 @@
-<template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
-</template>
+<template> 
+  <div id="app" class="container"> 
+    <h2>{{ title }}</h2> 
+    <add-item-component v-on:add="addItemToItems"></add-item-component> 
+    <items-component :items="items"></items-component> 
+    <div class="footer"> 
+      <hr/> 
+      <change-title-component></change-title-component> 
+    </div> 
+  </div> 
+</template> 
+
 
 <script>
-export default {
-  name: 'App'
-}
+  import AddItemComponent from './components/AddItemComponent'
+  import ItemsComponent from './components/ItemsComponent'
+  import ChangeTitleComponent from './components/ChangeTitleComponent'
+
+  export default{
+    components:{
+      AddItemComponent,
+      ItemsComponent,
+      ChangeTitleComponent,
+    },
+    data(){
+      return{
+        items:[{text:'Banana', checked:true},
+               {text:'Appels', checked:false}]
+      }
+    },
+    methods: { 
+      addItemToItems (text) { 
+        this.items.push({ 
+          text: text, 
+          checked: false 
+        }) 
+      } 
+    } 
+  }
+  
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
